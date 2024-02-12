@@ -17,6 +17,9 @@ if (isset($_POST['familia'])) {
     $productos = $sentencia_productos->fetchAll(PDO::FETCH_ASSOC);
 }
 
+
+
+
 ?>
 
 <body>
@@ -76,6 +79,10 @@ if (isset($_POST['familia'])) {
                                 ?>
                             </tbody>
                         </table>
+                        <form action="" method="POST">
+                            <button type="submit" name="comprar" class="btn btn-success">Stock</button>
+                        </form>
+                        <hr>
                         <?php
                         //Si se ha seleccionado un producto, se mostrará el stock de los productos seleccionados en cada una de las tiendas en las que se encuentren.
                         if (isset($_POST['producto'])) {
@@ -83,6 +90,22 @@ if (isset($_POST['familia'])) {
                             $sql_stock = "SELECT producto, tienda, SUM(unidades) as stock FROM stocks WHERE producto IN (" . implode(',', $productos_seleccionados) . ") GROUP BY producto, tienda";
                             $sentencia_stock = $conexion->query($sql_stock);
                             $stock = $sentencia_stock->fetchAll(PDO::FETCH_ASSOC);
+
+                            if (isset($_POST['comprar'])) {
+                                $contador = 0;
+                                $sql_pedidos = "SELECT id, nombre_corto, pvp FROM productos WHERE id IN (" . implode(',', $productos_seleccionados) . ")";
+                                $sentencia_pedidos = $conexion->query($sql_pedidos);
+                                $pedidos = $sentencia_pedidos->fetchAll(PDO::FETCH_ASSOC);
+                                $archivo = fopen('Pedidos.txt', 'a');
+                                foreach ($pedidos as $pedido) {
+                                    $contador++;
+                                    fwrite($archivo, "Producto: " . $pedido['nombre_corto'] . " PVP: " . $pedido['pvp'] . " NºPedidos: " . $contador . "\n");
+
+                                    fclose($archivo);
+                                }
+                            } else {
+                                echo "Debes seleccionar primero el stock de los productos que quieres comprar.";
+                            }
 
                         ?>
                             <table class="table table-striped text-white">
@@ -105,25 +128,17 @@ if (isset($_POST['familia'])) {
                             </table>
                         <?php } ?>
                         <form action="" method="POST">
-                            <button type="submit" class="btn btn-success">Stock</button>
-                        </form>
-                        <form action="" method="POST">
-                            <button type="submit" name="comprar" class="btn btn-success">Comprar</button>
+                            <button type="submit" class="btn btn-success">Comprar</button>
                         </form>
                         <hr>
                         </hr>
-                        <!-- Si marcamos uno o varios productos y pulsamos en un botón “Comprar”, insertará
-                        en un archivo de texto llamado Pedidos.txt el id, nombre_corto y el precio de ese
-                        producto (separados cada campo por un espacio en blanco) en una linea diferente
-                        para cada producto checkeado. En el caso de que se pidiese un producto más de
-                        una vez,
-                        deberá insertarse al final de la linea correspondiente a ese producto, un
-                        número que representará el contador de las veces que ese producto ha sido pedido -->
-
+                        <hr>
+                        </hr>
 
                     </form>
                 </div>
             </tbody>
         </table>
+    </div>
     </div>
 </body>
