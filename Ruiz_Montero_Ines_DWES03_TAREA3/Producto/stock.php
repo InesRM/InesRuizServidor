@@ -17,9 +17,6 @@ if (isset($_POST['familia'])) {
     $productos = $sentencia_productos->fetchAll(PDO::FETCH_ASSOC);
 }
 
-
-
-
 ?>
 
 <body>
@@ -44,7 +41,7 @@ if (isset($_POST['familia'])) {
                         <div class="form-group">
                             <label for="familia">Familia</label>
                             <select class="form-control" id="familia" name="familia">
-                                <option value="">Elige una familia</option>
+                                <option value="">1º-Elige una familia</option>
                                 <?php foreach ($familias as $familia) : ?>
                                     <option value="<?php echo $familia ?>"><?php echo $familia ?></option>
                                 <?php endforeach; ?>
@@ -52,7 +49,7 @@ if (isset($_POST['familia'])) {
                         </div>
                         <hr>
                         </hr>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
+                        <button type="submit" class="btn btn-primary"> 2º Buscar Productos</button>
                     </form>
                 </div>
                 <div class="mt-4">
@@ -66,6 +63,7 @@ if (isset($_POST['familia'])) {
                                 </tr>
                             </thead>
                             <tbody>
+                              
                                 <?php
                                 if (isset($_POST['familia'])) {
                                     foreach ($productos as $producto) : ?>
@@ -80,7 +78,7 @@ if (isset($_POST['familia'])) {
                             </tbody>
                         </table>
                         <form action="" method="POST">
-                            <button type="submit" name="comprar" class="btn btn-success">Stock</button>
+                            <button type="submit" name="comprar" class="btn btn-success">3º Comprueba el Stock</button>
                         </form>
                         <hr>
                         <?php
@@ -128,7 +126,7 @@ if (isset($_POST['familia'])) {
                             </table>
                         <?php } ?>
                         <form action="" method="POST">
-                            <button type="submit" class="btn btn-success">Comprar</button>
+                            <button type="submit" class="btn btn-danger">4º Comprar Producto</button>
                         </form>
                         <hr>
                         </hr>

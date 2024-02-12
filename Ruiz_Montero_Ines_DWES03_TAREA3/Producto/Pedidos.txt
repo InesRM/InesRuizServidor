@@ -4,3 +4,5 @@ Producto: STYLUSSX515W PVP: 77.50 NºPedidos: 1
 Producto: LGM237WDP PVP: 186.00 NºPedidos: 1
 Producto: LGM237WDP PVP: 186.00 NºPedidos: 1
 Producto: LGM237WDP PVP: 186.00 NºPedidos: 0
+Producto: IXUS115HSAZ PVP: 196.70 NºPedidos: 1
+Producto: LJPROP1102W PVP: 99.90 NºPedidos: 1
