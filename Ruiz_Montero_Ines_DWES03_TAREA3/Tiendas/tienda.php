@@ -13,8 +13,8 @@
         <div class="col-md-6">
             <form method="POST" action="./crear.php">
                 <div class="form-group">
-                    <label for="cod">Código</label>
-                    <input type="number" class="form-control" id="cod" name="cod" placeholder="Nº CÓDIGO" required>
+                    <label for="id">Código</label>
+                    <input type="number" class="form-control" id="id" name="id" placeholder="Nº CÓDIGO" required>
                 </div>
                 <div class="form-group">
                     <label for="nombre">Nombre de tienda</label>

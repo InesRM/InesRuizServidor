@@ -9,8 +9,8 @@
         <div class="card text-white bg-dark mb-3" style="max-width: 70rem;">
 
             <?php
-            $id = $_GET['cod'];
-            $detalle = "SELECT nombre, tlf from tiendas where cod=$id";    
+            $id = $_GET['id'];
+            $detalle = "SELECT nombre, tlf from tiendas where id=$id";    
             $sentencia_sql = $conexion->prepare($detalle);
             $sentencia_sql->execute();
             $tienda = $sentencia_sql->fetch();

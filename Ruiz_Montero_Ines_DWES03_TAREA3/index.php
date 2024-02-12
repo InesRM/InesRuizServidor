@@ -1,113 +1,46 @@
-<?php include_once './Conexion/conexion.php' ?>
-<?php include_once './Layout/header.php';
+<?php include_once './Conexion/conexion.php'; ?>
 
-//Obtenemos las familias de los productos, no de las familias
+<?php include_once './Layout/header.php' ?>
 
-$sql_familias = 'SELECT DISTINCT familia FROM productos';
-$sentencia_familias = $conexion->query($sql_familias);
-$familias = $sentencia_familias->fetchAll(PDO::FETCH_COLUMN);
+<div class="container my-5">
 
-
-
-//Manejamos la selección del desplegable
-
-if (isset($_POST['familia'])) {
-    $familia_seleccionada = $_POST['familia'];
-    $sql_productos = "SELECT id, nombre_corto, pvp FROM productos WHERE familia = '$familia_seleccionada'";
-    $sentencia_productos = $conexion->query($sql_productos);
-    $productos = $sentencia_productos->fetchAll(PDO::FETCH_ASSOC);
-} else {
-    $sql_productos = "SELECT * FROM productos";
-    $sentencia_productos = $conexion->query($sql_productos);
-    $productos = $sentencia_productos->fetchAll(PDO::FETCH_ASSOC);
-}
-
-?>
-
-<body>
-    <h3 class="text-center mt-2 font-weight-bold">Gestión de familias</h3>
-
-    <div class="container w-75 mt-4">
-        <div>
-            <a href="./Producto/producto.php" class="btn btn-warning">Volver</a>
-        </div>
-        <div class="d-flex justify-content-end">
-            <form id="formCrear" method="POST" action="">
-                <a href="../index.php">
-                    <button class="btn btn-success text-left" type="button" name="crear">Añadir</button>
-                </a>
-            </form>
-        </div>
-
-        <table class="table text-white table-striped text-center mt-2">
-            <tbody>
-                <div>
-                    <form action="" method="POST">
-                        <div class="form-group">
-                            <label for="familia">Familia</label>
-                            <select class="form-control" id="familia" name="familia">
-                                <option value="">Elige una familia</option>
-                                <?php foreach ($familias as $familia) : ?>
-                                    <option value="<?php echo $familia ?>"><?php echo $familia ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <hr></hr>
-                        <button type="submit" class="btn btn-primary">Buscar</button>
-                    </form>
-                </div>
-                <div class="mt-4">
-                    <form action="" method="POST">
-                        <table class="table table-striped text-white">
-                            <thead>
-                                <tr>
-                                    <th>Nombre corto</th>
-                                    <th>PVP</th>
-                                    <th>Stock</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($productos as $producto) : ?>
-                                    <tr>
-                                        <td><?php echo $producto['nombre_corto'] ?></td>
-                                        <td><?php echo $producto['pvp'] ?></td>
-                                        <td><input type="checkbox" name="producto[]" value="<?php echo $producto['id'] ?>"></td>
-                                    </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <?php
-                        //Si se ha seleccionado un producto, se mostrará el stock de los productos seleccionados en cada una de las tiendas en las que se encuentren.
-                        if (isset($_POST['producto'])) {
-                            $productos_seleccionados = $_POST['producto'];
-                            $sql_stock = "SELECT producto, tienda, SUM(unidades) as stock FROM stocks WHERE producto IN (" . implode(',', $productos_seleccionados) . ") GROUP BY producto, tienda";
-                            $sentencia_stock = $conexion->query($sql_stock);
-                            $stock = $sentencia_stock->fetchAll(PDO::FETCH_ASSOC);
-                        ?>
-                            <table class="table table-striped text-white">
-                                <thead>
-                                    <tr>
-                                        <th>Producto</th>
-                                        <th>Tienda</th>
-                                        <th>Stock</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($stock as $tienda) : ?>
-                                        <tr>
-                                            <td><?php echo $tienda['producto'] ?></td>
-                                            <td><?php echo $tienda['tienda'] ?></td>
-                                            <td><?php echo $tienda['stock'] ?></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        <?php } ?>
-                        <form action="" method="POST">
-                            <button type="submit" class="btn btn-primary">Stock</button>
-                        </form>
-                </div>
-            </tbody>
-        </table>
+    <h2>Productos</h2>
+    <hr>
+    <div>
+        <a href="./Producto/producto.php" class="btn btn-warning">Gestión Productos</a>
     </div>
+</div>
+
+<div class="container my-5">
+    <h2>Familias</h2>
+    <hr>
+
+    <div>
+        <a href="./Familias/familia.php" class="btn btn-primary">Gestión Familias</a>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h2>Tiendas</h2>
+    <hr>
+    <div>
+        <a href="./Tiendas/tienda.php" class="btn btn-info">Gestión Tiendas</a>
+    </div>
+
+</div>
+
+<div class="container my-5">
+    <h2>Stock</h2>
+    <hr>
+    <div>
+        <a href="./Producto/stock.php" class="btn btn-success">Gestión Stock y Ventas</a>
+    </div>
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </body>
+
+</html>

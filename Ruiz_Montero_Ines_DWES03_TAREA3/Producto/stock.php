@@ -24,7 +24,7 @@ if (isset($_POST['familia'])) {
 
     <div class="container w-75 mt-4">
         <div>
-            <a href="./Producto/producto.php" class="btn btn-warning">Volver</a>
+            <a href="../index.php" class="btn btn-warning">Volver</a>
         </div>
         <div class="d-flex justify-content-end">
             <form id="formCrear" method="POST" action="">

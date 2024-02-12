@@ -34,21 +34,21 @@
                 foreach ($lista_tiendas as $tienda) {
                 ?>
                     <tr>
-                        <td class="font-weight-normal"><?= $tienda['cod'] ?></td>
+                        <td class="font-weight-normal"><?= $tienda['id'] ?></td>
                         <td class="font-weight-normal"><?= $tienda['nombre'] ?></td>
                         <td class="font-weight-normal">
                         <td>
-                            <a href="../Tiendas/update.php?cod=<?= $tienda['cod'] ?>">
+                            <a href="../Tiendas/update.php?id=<?= $tienda['id'] ?>">
                                 <button class="btn btn-primary" type="button" name="editar">Editar</button>
                             </a>
                         </td>
                         <td>
-                            <a href="../Tiendas/detalle.php?cod=<?= $tienda['cod'] ?>">
+                            <a href="../Tiendas/detalle.php?id=<?= $tienda['id'] ?>">
                                 <button class="btn btn-info" type="button" name="detalle">Detalle</button>
                             </a>
                         </td>
                         <td>
-                            <a href="../Tiendas/borrar.php?cod=<?= $tienda['cod'] ?>">
+                            <a href="../Tiendas/borrar.php?id=<?= $tienda['id'] ?>">
                                 <button class="btn btn-danger" type="button" name="eliminar">Borrar</button>
                             </a>
                         </td>
