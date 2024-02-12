@@ -15,7 +15,7 @@ if (isset($_POST['familia'])) {
     $sql_productos = "SELECT id, nombre_corto, pvp FROM productos WHERE familia = '$familia_seleccionada'";
     $sentencia_productos = $conexion->query($sql_productos);
     $productos = $sentencia_productos->fetchAll(PDO::FETCH_ASSOC);
-} 
+}
 
 ?>
 
@@ -47,7 +47,8 @@ if (isset($_POST['familia'])) {
                                 <?php endforeach; ?>
                             </select>
                         </div>
-                        <hr></hr>
+                        <hr>
+                        </hr>
                         <button type="submit" class="btn btn-primary">Buscar</button>
                     </form>
                 </div>
@@ -61,15 +62,15 @@ if (isset($_POST['familia'])) {
                                     <th>Stock</th>
                                 </tr>
                             </thead>
-                            <tbody>                          
-                                <?php 
-                                if (isset($_POST['familia'])){
+                            <tbody>
+                                <?php
+                                if (isset($_POST['familia'])) {
                                     foreach ($productos as $producto) : ?>
-                                    <tr>
-                                        <td><?php echo $producto['nombre_corto'] ?></td>
-                                        <td><?php echo $producto['pvp'] ?></td>
-                                        <td><input type="checkbox" name="producto[]" value="<?php echo $producto['id'] ?>"></td>
-                                    </tr>
+                                        <tr>
+                                            <td><?php echo $producto['nombre_corto'] ?></td>
+                                            <td><?php echo $producto['pvp'] ?></td>
+                                            <td><input type="checkbox" name="producto[]" value="<?php echo $producto['id'] ?>"></td>
+                                        </tr>
                                 <?php endforeach;
                                 }
                                 ?>
@@ -82,6 +83,7 @@ if (isset($_POST['familia'])) {
                             $sql_stock = "SELECT producto, tienda, SUM(unidades) as stock FROM stocks WHERE producto IN (" . implode(',', $productos_seleccionados) . ") GROUP BY producto, tienda";
                             $sentencia_stock = $conexion->query($sql_stock);
                             $stock = $sentencia_stock->fetchAll(PDO::FETCH_ASSOC);
+
                         ?>
                             <table class="table table-striped text-white">
                                 <thead>
@@ -105,6 +107,21 @@ if (isset($_POST['familia'])) {
                         <form action="" method="POST">
                             <button type="submit" class="btn btn-success">Stock</button>
                         </form>
+                        <form action="" method="POST">
+                            <button type="submit" name="comprar" class="btn btn-success">Comprar</button>
+                        </form>
+                        <hr>
+                        </hr>
+                        <!-- Si marcamos uno o varios productos y pulsamos en un botón “Comprar”, insertará
+                        en un archivo de texto llamado Pedidos.txt el id, nombre_corto y el precio de ese
+                        producto (separados cada campo por un espacio en blanco) en una linea diferente
+                        para cada producto checkeado. En el caso de que se pidiese un producto más de
+                        una vez,
+                        deberá insertarse al final de la linea correspondiente a ese producto, un
+                        número que representará el contador de las veces que ese producto ha sido pedido -->
+
+
+                    </form>
                 </div>
             </tbody>
         </table>
